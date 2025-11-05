@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Medical & Health Careers</title>
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon"  href="favicon.jpeg">
+<style>
+  :root{
+    --accent:#0073e6;
+    --accent-2:#00c6ff;
+    --nav:#005bb5;
+    --bg:#f0f8ff;
+    --rounded:12px;
+    --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  }
+
+  body{
+    margin:0;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background:var(--bg);
+    color:#222;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* HEADER SLIDESHOW */
+  .hero {
+    position:relative;
+    height:320px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+  }
+  .hero .slide {
+    position:absolute;
+    inset:0;
+    background-position:center;
+    background-size:cover;
+    opacity:0;
+    transform:scale(1.03);
+    transition:opacity .9s ease, transform .9s ease;
+  }
+  .hero .slide.visible{
+    opacity:1;
+    transform:scale(1);
+  }
+
+  /* dark overlay so text stays readable */
+  .hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.45));
+    pointer-events:none;
+  }
+
+  .hero-content{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    padding:0 20px;
+  }
+  .hero h1{
+    margin:0;
+    font-size:2.4rem;
+    letter-spacing:0.6px;
+    text-shadow: 0 6px 18px rgba(0,0,0,0.45);
+  }
+  .hero p{
+    margin:10px 0 0 0;
+    font-size:1.05rem;
+    opacity:0.95;
+  }
+
+  nav{
+    background:var(--nav);
+    color:white;
+    position:sticky;
+    top:0;
+    z-index:40;
+    padding:12px 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  nav .nav-inner{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    gap:18px;
+    align-items:center;
+    justify-content:center;
+  }
+  nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+    transition:transform .15s ease, color .15s;
+  }
+  nav a:hover{ transform:translateY(-2px); color: #ffeb3b; }
+
+  .container{
+    max-width:1100px;
+    margin:28px auto;
+    padding:0 16px;
+  }
+
+  section{
+    background:white;
+    border-radius:var(--rounded);
+    box-shadow:var(--card-shadow);
+    padding:22px;
+    margin-bottom:20px;
+  }
+
+  section h2{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:1.15rem;
+    color:var(--accent);
+    margin:0 0 12px 0;
+  }
+
+  /* modern search */
+  .search-row{
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    margin-bottom:12px;
+  }
+  #searchBar{
+    width:75%;
+    max-width:760px;
+    padding:12px 16px;
+    border-radius:999px;
+    border:1px solid rgba(0,0,0,0.12);
+    outline:none;
+    box-shadow: 0 6px 18px rgba(0,180,255,0.06);
+  }
+  #searchBar:focus{ box-shadow: 0 8px 22px rgba(0,180,255,0.12); }
+
+  /* tables */
+  .table-wrap{
+    overflow:auto;
+    border-radius:8px;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:640px;
+  }
+  th{
+    text-align:left;
+    padding:12px;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    color:white;
+    font-weight:700;
+  }
+  td{
+    padding:12px;
+    border-bottom:1px solid #eee;
+    vertical-align:top;
+  }
+  tr:nth-child(even) td{ background:#fbfdff; }
+  tr:hover td{ background:#f0fbff; }
+
+  /* responsive */
+  @media (max-width:820px){
+    .hero{ height:260px; }
+    .hero h1{ font-size:1.6rem; }
+    #searchBar{ width:86%; }
+    table{ min-width:520px; }
+  }
+
+  /* subtle icon style */
+  .icon {
+    width:28px; height:28px; display:inline-block; vertical-align:middle;
+  }
+
+  footer{
+    text-align:center;
+    padding:20px 12px;
+    color:white;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    border-top-left-radius:8px;
+    border-top-right-radius:8px;
+    margin-top:18px;
+  }
+
+  /* small "no results" */
+  .noresults{
+    text-align:center;
+    color:#666;
+    font-style:italic;
+    margin-top:8px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- HERO with slideshow background -->
+  <header class="hero" aria-hidden="false">
+    <!-- slides: use Unsplash dynamic queries (reliable CDN). You can replace queries with fixed photos if you prefer -->
+    <div class="slide" data-src="school.jpg" style=""></div>
+    <div class="slide" data-src="staff working.jpg"></div>
+	<div class="slide" data-src="doctorss.jpg"></div>
+	<div class="slide" data-src="lab.jpg"></div>
+    <div class="hero-content">
+      <h1>Medical & Health Careers</h1>
+      <p>Discover jobs, education pathways, study-abroad options and salary insights across countries</p>
+    </div>
+  </header>
+
+  <!-- navigation -->
+  <nav role="navigation" aria-label="Main">
+    <div class="nav-inner">
+	  <a href="#AboutUs">About Us</a>
+      <a href="#home">Home</a>
+      <a href="#jobs">Jobs</a>
+      <a href="#education">Education</a>
+      <a href="#studyabroad">Study Abroad</a>
+      <a href="#salaries">Salaries</a>
+    </div>
+  </nav>
+  
+
+
+  <!-- content -->
+  <main class="container" id="home">
+    <section aria-labelledby="search-title">
+      <h2 id="search-title">🔎 Search Careers</h2>
+      <div class="search-row">
+        <input id="searchBar" type="search" placeholder="Type job, college, country or exam (e.g. 'doctor', 'NEET', 'UAE')">
+      </div>
+      <p class="noresults" id="noresults" style="display:none">No matches found. Try another keyword. Try on the other search bar down.</p>
+	 <details>
+  <summary>Click to search in google</summary>
+  <p>
+
+ <div  style="text-align: center;" ; class="search-container">
+        <form action="https://google.com/search" method="get">
+            <input type="text" name="q" placeholder="Search Google..." class="search-input">
+            <button type="submit" class="search-button">Search</button>
+        </form>
+    </div>
+	</p>
+	</details>
+	</section>
+	
+  <section id="AboutUs" aria-labelledby="AboutUs-title">
+  <h2 id="AboutUs-title">🔷 About Us</h2>
+
+  <!-- About Us Description -->
+  <div style="background:white;padding:16px;border-radius:10px;box-shadow:var(--card-shadow);margin-bottom:20px;">
+    <h3 style="margin-top:0;">Who We Are</h3>
+    <p>
+      We are dedicated to helping individuals discover and build meaningful careers in the medical and healthcare fields. 
+      Our mission is to provide guidance, training resources, and career opportunities that empower students, professionals, 
+      and career changers to succeed in the ever-growing healthcare industry.
+    </p>
+  </div>
+
+  <!-- Team Grid -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+    <div style="background:white;padding:12px;border-radius:10px;box-shadow:var(--card-shadow)">
+      <strong>Aadya Kadri</strong>
+      <p style="margin:8px 0 0">Team Leader</p>
+    </div>
+    <div style="background:white;padding:12px;border-radius:10px;box-shadow:var(--card-shadow)">
+      <strong>Ahana Nagaraj Uchil</strong>
+      <p style="margin:8px 0 0">Co-Leader</p>
+    </div>
+    <div style="background:white;padding:12px;border-radius:10px;box-shadow:var(--card-shadow)">
+      <strong>Maithra Loganathan</strong>
+      <p style="margin:8px 0 0">Coder</p>
+    </div>
+    <div style="background:white;padding:12px;border-radius:10px;box-shadow:var(--card-shadow)">
+      <strong>Ratika Rajeev Kumar</strong>
+      <p style="margin:8px 0 0">Researcher</p>
+    </div>
+    <div style="background:white;padding:12px;border-radius:10px;box-shadow:var(--card-shadow)">
+      <strong>Anisha Nandimandalam</strong>
+      <p style="margin:8px 0 0">Researcher</p>
+    </div>
+    <div style="background:white;padding:12px;border-radius:10px;box-shadow:var(--card-shadow)">
+      <strong>Meghna Das</strong>
+      <p style="margin:8px 0 0">Designer</p>
+    </div>
+    <div style="background:white;padding:12px;border-radius:10px;box-shadow:var(--card-shadow)">
+      <strong>Aby Arikupurathu</strong>
+      <p style="margin:8px 0 0">Teacher Incharge</p>
+    </div>
+    <div style="background:white;padding:12px;border-radius:10px;box-shadow:var(--card-shadow)">
+      <strong>UDAAN / Ahana's Mom</strong>
+      <p style="margin:8px 0 0">Medical & Health-Career Guide</p>
+    </div>
+  </div>
+</section>
+
+    <section id="jobs" aria-labelledby="jobs-title">
+      <h2 id="jobs-title">🩺 Current & Future Jobs</h2>
+      <div class="table-wrap">
+        <table id="jobsTable" aria-describedby="jobs-title">
+          <thead>
+            <tr><th>Profession</th><th>Future Trends</th><th>Skills Required</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>General Medicine Doctor</td><td>AI diagnostics, telemedicine</td><td>Clinical expertise, communication, tech literacy</td></tr>
+            <tr><td>Nurse</td><td>Remote patient monitoring, home-care tech</td><td>Patient care, empathy, digital tools</td></tr>
+            <tr><td>Prosthetist</td><td>Medical robotics, 3D bioprinting</td><td>Design, creativity , communication, problem-solving</td></tr>
+            <tr><td>Radiologist</td><td>AI image analysis</td><td>Imaging knowledge, attention to detail</td></tr>
+            <tr><td>Physiotherapist</td><td>Rehab robotics, sports medicine</td><td>Anatomy, manual therapy</td></tr>
+            <tr><td>Genetic Counselor</td><td>Personalized medicine</td><td>Genetics, counseling</td></tr>
+            <tr><td>Nutritionist</td><td>Personalized diet plans</td><td>Dietetics, client communication</td></tr>
+            <tr><td>Public Health Analyst</td><td>Epidemiology & policy design</td><td>Statistics, research, communication</td></tr>
+            <tr><td>Medical Illustrator</td><td>3D medical animation</td><td>Anatomical knowledge, art, 3D software</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="education" aria-labelledby="edu-title">
+      <h2 id="edu-title">🎓 Education & Colleges (More choices)</h2>
+      <img src="university campus MandH.jpg" alt="University campus"
+     style="width:100%; height:auto; border-radius:1px; display:block; margin-bottom:6px;">
+
+
+      <div class="table-wrap">
+        <table id="educationTable">
+          <thead>
+            <tr><th>Country</th><th>Course</th><th>Well-known College/University</th><th>Less-known College/University</th><th>Fees (per year)(approx.)</th><th>Exams Required</th></tr>
+          </thead>
+          <tbody>
+            <!-- India -->
+            <tr><td>India</td><td>MBBS</td><td>AIIMS Delhi; JIPMERKEM Hospital Mumbai; PGIMER College</td><td> KMC Mangalore, St. John's Medical College</td><td>₹1L (govt), ₹75k- ₹1.5L crores (private)</td><td>NEET-UG</td></tr>
+            <tr><td>India</td><td>BSc Nursing</td><td>CMC Vellore; Manipal College; Rajkumari Amrit Kaur College</td><td>Sai Nath University; Indira Gandhi Technological & Medical Sciences University (IGTAMSU)</td><td>₹30k-₹1L(govt), ₹4L -₹l5L (private)</td><td>Institutional tests/NEET</td></tr>
+
+            <!-- UAE -->
+            <tr><td>UAE</td><td>MBBS / MD</td><td>University of Sharjah; RAK Medical & Health Sciences University; Gulf Medical University</td><td>Ajman University – College of Medicine; Mohammed Bin Rashid University of Medicine & Health Sciences (MBRU)</td><td>60k-160k (govt), 120k-180k (private)</td><td>EmSAT, IELTS/TOEFL</td></tr>
+            <tr><td>UAE</td><td>BSc Nursing</td><td>University of Sharjah; Dubai Medical College for Girls</td><td>Gulf Medical University nursing programs</td><td>42k-44k (govt), 42k-50k (private)</td><td>High school + IELTS</td></tr>
+
+            <!-- USA -->
+            <tr><td>USA</td><td>Medicine / MD</td><td>Harvard Medical School; Johns Hopkins; Mayo Clinic</td><td>Case Western Reserve, Creighton University</td><td> $52k-$54k (govt),$24k-$68k (private)</td><td>MCAT, TOEFL</td></tr>
+
+            <!-- UK -->
+            <tr><td>UK</td><td>Physiotherapy / Medicine</td><td>King's College London; University of Glasgow; Cardiff University</td><td>Keele University</td><td>€9k-€11k (govt), €49k-€80k (private)</td><td>UCAT/UCAS, IELTS</td></tr>
+
+            <!-- Canada -->
+            <tr><td>Canada</td><td>Public Health / Nursing</td><td>McGill; UBC; University of Alberta</td><td>Memorial University</td><td>20k-40k (govt)</td><td>IELTS, some GRE</td></tr>
+
+            <!-- Australia -->
+            <tr><td>Australia</td><td>Nursing / Allied Health</td><td>University of Sydney; Monash</td><td>University of Newcastle</td><td>AU$ 20k-AU$ 40k (govt),AU$ 45k-AU$ 50k  (private)</td><td>IELTS</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="studyabroad" aria-labelledby="study-title">
+      <h2 id="study-title">🌍 Study Abroad — Exams & Requirements</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+        <div style="background:white;padding:12px;border-radius:10px;box-shadow:var(--card-shadow)">
+          <strong>India</strong>
+          <p style="margin:8px 0 0">Exam: NEET-UG. Cost: low to moderate. Strong clinical exposure in many government colleges.</p>
+        </div>
+        <div style="background:white;padding:12px;border-radius:10px;box-shadow:var(--card-shadow)">
+          <strong>UAE</strong>
+          <p style="margin:8px 0 0">Exams: EmSAT / institutional tests; IELTS/TOEFL for English. Modern hospitals, growing research.</p>
+        </div>
+        <div style="background:white;padding:12px;border-radius:10px;box-shadow:var(--card-shadow)">
+          <strong>USA</strong>
+          <p style="margin:8px 0 0">Exams: MCAT + TOEFL. High fees but high research & training opportunities.</p>
+        </div>
+        <div style="background:white;padding:12px;border-radius:10px;box-shadow:var(--card-shadow)">
+          <strong>UK</strong>
+          <p style="margin:8px 0 0">Exams: UCAT/UCAS + IELTS. Many top-tier universities for medicine & allied health.</p>
+        </div>
+      </div>
+    </section>
+    <section id="salaries" aria-labelledby="sal-title">
+      <h2 id="sal-title">💰 Salary Insights (present & future ranges)</h2>
+      <div class="table-wrap">
+        <table id="salaryTable">
+          <thead><tr><th>Job</th><th>Country</th><th>Current (approx.)</th><th>Future (estimate)</th></tr></thead>
+          <tbody>
+            <tr><td>Doctor (MBBS)</td><td>India</td><td>₹4–8 lakh/year</td><td>₹10–20 lakh</td></tr>
+            <tr><td>Doctor (specialist)</td><td>UAE</td><td>AED 15k–25k/month </td><td>AED 30k+/month </td></tr>
+            <tr><td>Nurse</td><td>India</td><td>₹2–6 lakh</td><td>₹6–10 lakh</td></tr>
+            <tr><td>Nurse</td><td>UAE</td><td>AED 4k–8k/month</td><td>AED 8k–12k/month</td></tr>
+            <tr><td>Biomedical Engineer</td><td>India</td><td>$8k–$20k</td><td>$25k–$40k</td></tr>
+            <tr><td>Healthcare Data Scientist</td><td>USA</td><td>$70k–$110k</td><td>$100k–$160k</td></tr>
+            <tr><td>Genetic Counselor</td><td>India / UAE</td><td>$8k–$20k</td><td>$20k–$40k</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    ©️ 2025 UDAAN Medical & Health Careers — Career Guide
+  </footer>
+
+<script>
+/* ---------------------------
+   Header slideshow logic
+   - uses each .slide[data-src] as background-image
+   - cycles with fade
+   --------------------------- */
+(function headerSlideshow(){
+  const slides = Array.from(document.querySelectorAll('.hero .slide'));
+  if(!slides.length) return;
+
+  // set background images and lazy-load them
+  slides.forEach(s => {
+    const url = s.getAttribute('data-src');
+    s.style.backgroundImage = 'url("' + url + '")';
+  });
+
+  let idx = 0;
+  slides[idx].classList.add('visible');
+
+  setInterval(() => {
+    slides[idx].classList.remove('visible');
+    idx = (idx + 1) % slides.length;
+    slides[idx].classList.add('visible');
+  }, 5000); // change slide every 5s
+})();
+
+/* ---------------------------
+   Search: live filter across tables
+   - hides rows that don't match query
+   - shows "noresults" message when nothing matches
+   --------------------------- */
+(function searchFeature(){
+  const input = document.getElementById('searchBar');
+  const noresults = document.getElementById('noresults');
+  const tableIds = ['jobsTable','educationTable','salaryTable'];
+
+  function doSearch(){
+    const q = (input.value || '').trim().toLowerCase();
+    let anyFound = false;
+
+    tableIds.forEach(id => {
+      const table = document.getElementById(id);
+      if(!table) return;
+      const rows = table.tBodies[0]?.rows || table.rows; // support table with/without tbody
+      for(let i= (table.tHead ? 1 : 0); i<rows.length; i++){
+        const row = rows[i];
+        const text = row.innerText.toLowerCase();
+        const show = q === '' || text.includes(q);
+        row.style.display = show ? '' : 'none';
+        if(show) anyFound = true;
+      }
+    });
+
+    noresults.style.display = anyFound ? 'none' : 'block';
+  }
+
+  // live search as user types
+  input.addEventListener('input', doSearch);
+})();
+</script>
+</body>
+</html>
